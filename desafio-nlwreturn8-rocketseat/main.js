@@ -14,3 +14,21 @@ function openMenu() {
 function closeMenu() {
   document.body.classList.remove('menu-expanded')
 }
+// precisa criar objeto no js {}
+
+ScrollReveal({
+  origin: 'top',
+  distance: '30px',
+  duration: 700,
+
+  // template literals === ``
+}).reveal(`
+  #home, 
+  #home img, 
+  #home .stats, 
+  #services,
+  #services header,
+  #services .card
+  #about, 
+  #about header, 
+  #about .content`)

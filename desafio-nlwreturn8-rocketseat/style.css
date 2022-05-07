@@ -14,6 +14,7 @@
 
   --brand-beige: hsl(39, 100%, 97%);
   --brand-light: hsl(148, 23%, 89%);
+  --bg-light: hsl(180, 14%, 97%);
 
   /* Melhorar acessibilidade visualização da tela - fonte padrão do navegador é 16px para 100%
    font-size: 16px [(10*100)/16=62,5%]; */
@@ -21,6 +22,11 @@
 
   --nav-height: 7.2rem;
 }
+html {
+  /* chrome://flags/#smooth-scrolling - caso  não esteja habilitado*/
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   width: 100%;
@@ -34,6 +40,7 @@ body {
   
   overflow: overlay;
   /* overflow: overlay = sobrepõe sem scroll da pagina de iteração, não conta com a largura dele*/
+  background-color: var(--bg-light);
 }
 .wrapper {
   /* wrapper = como se tivesse embrulhando */
@@ -44,36 +51,32 @@ body {
 ul {
   list-style: none;
 }
-
-/*=== HEADER =================================*/
-header {
-  margin-top: calc(4.1rem + var(--nav-height));
+img {
+  max-width: 100%;
 }
-header::before {
-/* header::before >> antes do header faça... */
-  content: '';
-  /* conteudo vazio */
-  width: 100%;
-  height: calc(108rem + var(--nav-height));
-  /* height: calc(108rem + var(--nav-height)) = 108 + 7.2 => --nav-height: 7.2rem – foi definido em root essa variavel, foi feito o calc aqui para ajustar definições anteriores, por causa do calc do header que empurrou o conteudo para baixo */
-  background-color: var(--brand-light);
-  display: block;
-
-  position: absolute;
-  /* absolute-> conteúdo sobreposto, por cima do conteúdo */
-  top: 0;
-  left: 0;
-  z-index: -1;
-  /* z-index: -1 = conteúdo vai para trás */
+section {
+  padding-block: 10rem;
 }
-
-header h4 {
+section header h4 {
   font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
   color: var(--primary-color);
+
+  text-transform: uppercase;
+
   margin-bottom: 1.6rem;
 }
 
-header h1 {
+section header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+
+  color: var(--headline);
+}
+
+section header h1 {
   font-size: 3.4rem;
   color: var(--headline);
   line-height: 130%;
@@ -81,74 +84,13 @@ header h1 {
   margin-bottom: 2.4rem;
 }
 
-header p {
-  font-size: 1.8rem;
-  line-height: 150%;
+section .content p {
   font-weight: 400;
+  font-size: 1.6rem;  
+  line-height: 150%;  
+
   color: var(--paragraph);
-
-  margin-bottom: 3.2rem;
 }
-
-header button {
-  background: var(--primary-color);
-
-  border: none;
-  border-radius: 4rem;
-
-  margin-bottom: 6rem;
-
-  height: 6.2rem;
-  width: 26.3rem;
-
-  color: white;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.6rem;
-
-  margin-right: auto;
-  margin-left: auto;
-}
-header img {
-  width: 26.4rem;
-  display: block;
-  margin-inline: auto;
-  object-position: 0 2rem;
-}
-
-.stats {
-  width: 32.7rem;
-  padding-block: 4rem;
-  margin-inline: auto;
-
-  background-color: var(--brand-beige);
-  border: 1px solid var(--brand-light);
-  border-radius: 0.6rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6rem;
-}
-.stat h3 {
-  font-size: 4.8rem;
-  color: var(--headline);
-  line-height: 130%;
-
-  margin-bottom: 0.4rem;
-}
-.stat p {
-  margin: 0;
-  color: var(--primary-color);
-  font-size: 1.6rem;
-  line-height: 150%;
-}
-
 /*=== NAVIGATION =================================*/
 nav {
   display: flex;
@@ -158,8 +100,9 @@ nav {
   position: fixed;
   /* position: fixed = sobreposição de conteudo */
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100vw;  
+  z-index: 100;
+  /* z-index: 100 valor positivo para ficar por cima das coisas */
 }
 
 nav .wrapper {
@@ -168,12 +111,9 @@ nav .wrapper {
   justify-content: space-between;
 }
 nav.scroll {
-  background: var(--primary-color);
-  width: 100vw;
-  position: fixed;
-  top: 0;
+  background: var(--primary-color);  
 }
-nav.scroll svg:nth-child(1) path {
+nav.scroll .logo path {
   fill: white;
 }
 
@@ -194,7 +134,8 @@ body.menu-expanded {
 }
 
 body.menu-expanded > :not(nav) {
-/* body.menu-expanded > :not(nav)=> pega todos os filhos do primeiro nível */
+  display: none;
+/* body.menu-expanded > :not(nav)=> pega todos os filhos do primeiro nível display: none == tira o elemento da tela*/
   display: none;
 }
 
@@ -205,6 +146,10 @@ body.menu-expanded .open-menu {
   /* opacity: 0 => elemento fica sumido mais ainda clicável */
   visibility: hidden;
   /*  visibility: hidden => itens ficam escondidos e não clicáveis! */
+}
+
+.menu{
+  transform: translateY(100%);
 }
 
 body.menu-expanded .menu,
@@ -223,11 +168,13 @@ body.menu-expanded .menu {
   height: 100vh;
 
   padding-top: var(--nav-height);
+
+  transition: transform 300ms;
+  transform: translateY(0);
+
+  
 }
 
-body.menu-expanded nav {
-  position: relative;
-}
 
 .menu ul:nth-child(1) {
   display: flex;
@@ -252,7 +199,7 @@ body.menu-expanded nav {
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 2.3rem;
-  text-transform: uppercase;
+  text-transform: uppercase;  
   text-decoration: none;
 
   color: var(--primary-color);
@@ -283,4 +230,136 @@ body.menu-expanded .logo path {
 
 body.menu-expanded button path {
   stroke: white;
+}
+
+/*=== HOME =================================*/
+#home {
+  padding-top: calc(4.1rem + var(--nav-height));
+}
+#home::before {
+/* header::before >> antes do header faça... */
+  content: '';
+  /* conteudo vazio */
+  width: 100%;
+  height: calc(108rem + var(--nav-height));
+  /* height: calc(108rem + var(--nav-height)) = 108 + 7.2 => --nav-height: 7.2rem – foi definido em root essa variavel, foi feito o calc aqui para ajustar definições anteriores, por causa do calc do header que empurrou o conteudo para baixo */
+  background-color: var(--brand-light);
+  display: block;
+
+  position: absolute;
+  /* absolute-> conteúdo sobreposto, por cima do conteúdo */
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* z-index: -1 = conteúdo vai para trás */
+}
+
+#home p {
+  font-size: 1.8rem;
+  line-height: 150%;
+  font-weight: 400;
+  color: var(--paragraph);
+
+  margin-bottom: 3.2rem;
+}
+
+#home button {
+  background: var(--primary-color);
+
+  border: none;
+  border-radius: 4rem;
+
+  margin-bottom: 6rem;
+
+  height: 6.2rem;
+  width: 26.3rem;
+
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+#home img {
+  width: 26.4rem;
+  display: block;
+  margin-inline: auto;
+  object-position: 0 2rem;
+}
+
+#home .stats {
+  width: 32.7rem;
+  padding-block: 4rem;
+  margin-inline: auto;
+
+  background-color: var(--brand-beige);
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rem;
+}
+#home .stat h3 {
+  font-size: 4.8rem;
+  color: var(--headline);
+  line-height: 130%;
+
+  margin-bottom: 0.4rem;
+}
+#home .stat p {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  line-height: 150%;
+}
+
+
+
+/*=== SERVICES =================================*/
+#services header h2 {
+  margin-bottom: 6rem;
+}
+
+#services .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+#services .card {
+  padding: 2.4rem;
+  text-align: left;
+
+  background: white;
+
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
+}
+
+#services .card h3 {
+  margin-block: 1.6rem;
+}
+
+/*=== ABOUT =================================*/
+#about {
+  text-align: left;
+  background-color: var(--brand-beige);
+}
+
+#about header h2 {
+  margin-bottom: 2.4rem;
+}
+
+#about .content p {
+  margin-top: 2.4rem;
+  margin-bottom: 6rem;
 }
