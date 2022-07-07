@@ -1,4 +1,4 @@
-# Desafio | NLW Return8 | Rocketseat
+# 👩‍💻👩‍💻 Desafio | NLW Return8 | Rocketseat 👩‍💻👩‍💻
 - Trilha Origin | 5 dias de muitos aprendizados!!
 - Padronizando a estrutura
 - Tags semânticas
@@ -9,9 +9,13 @@
 - Ajustes para largura de tela 
 - CSS Media Queries.
 
-### MVP
+### Acesse o [link] (https://eliane-sp-silva.github.io/desafio-nlwreturn8-rocketseat/) da página:
+
+
+### Protótipo
 
 ![reviewDoctorCare](https://user-images.githubusercontent.com/95144647/168702311-f1602db2-725b-4e2c-9a97-b35eaf356135.png)
+
 
 ### Semana NLW Return
 
