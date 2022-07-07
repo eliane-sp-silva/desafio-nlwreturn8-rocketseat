@@ -9,10 +9,6 @@
 - Ajustes para largura de tela 
 - CSS Media Queries.
 
-### Acesse o link da página:
-🌐 https://eliane-sp-silva.github.io/desafio-nlwreturn8-rocketseat/
-
-
 ### Protótipo
 
 ![reviewDoctorCare](https://user-images.githubusercontent.com/95144647/168702311-f1602db2-725b-4e2c-9a97-b35eaf356135.png)
